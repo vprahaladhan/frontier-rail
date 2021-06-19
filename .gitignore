@@ -39,5 +39,5 @@
 yarn-debug.log*
 .yarn-integrity
 
-
+#Ignore environment file .env with secrets for social logins 
 .env
