@@ -1,9 +1,6 @@
-<%# Add the Facebook login link here %>
-<% if session[:user_id] %>
-  <h1><%= @user.name %></h1>
-  <h2>Email: <%= @user.email %></h2>
-  <h2>Facebook UID: <%= @user.uid %></h2>
-  <img src="<%= @user.image %>">
-<% else %>
-  <%= link_to('Log in with Facebook!', '/auth/facebook', method: :post) %>
-<% end %>
+<div>
+  <div style='width: 600px;margin:auto'>
+    <img  style='width: 600px' src="https://s26162.pcdn.co/wp-content/uploads/2020/03/Screen-Shot-2020-04-04-at-1.24.54-AM.png">
+  </div>
+  <h1 align="center">Welcome to Frontier Railways!</h1>
+</div>

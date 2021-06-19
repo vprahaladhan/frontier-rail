@@ -63,4 +63,7 @@ gem 'dotenv-rails'
 
 gem 'thin'
 
-gem "omniauth-rails_csrf_protection"
+gem 'omniauth-rails_csrf_protection'
+
+# bootstrap
+gem 'bootstrap-sass', '3.3.7'
