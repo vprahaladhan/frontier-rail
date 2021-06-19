@@ -1,0 +1,11 @@
+<h1><%= !params[:message].nil? ? params[:message]  : '' %></h1>
+
+<h1><%= @user.admin ? 'ADMIN' : '' %></h1>
+<h1><%= @user.name %></h1>
+<% if !@user.admin then %>
+  <p>Height: <%= @user.height %></p>
+  <p>Mood: <%= @user.mood %></p>
+  <p>Tickets: <%= @user.tickets %></p>
+<% end %>
+
+<%= link_to 'See attractions', attractions_path %>
