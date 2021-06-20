@@ -4,12 +4,18 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    @user.save
-    session[:user_id] = @user.id
-    session[:user_name] = @user.name
-    session[:admin] = @user.admin
-    redirect_to user_path(@user.id)
+    if (user_params[:name] == 'admin') then 
+      if (!User.find_by(name: "admin").nil?) then
+        return head(:forbidden)
+      end
+    end
+    @user = User.create(user_params)
+    if @user.valid? then 
+      session[:user_id] = @user.id
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   def edit
@@ -22,6 +28,12 @@ class UsersController < ApplicationController
   end
 
   def index
+    if (!session[:user_id].nil? && User.find_by(id: session[:user_id]).name == 'admin') then 
+      @users = User.all
+    else 
+      flash[:error] = "You should be an admin to view this page!"
+      render :index
+    end
   end
 
   def show
@@ -34,6 +46,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :happiness, :nausea, :height, :tickets, :password, :admin)
+    params.require(:user).permit(:name, :email, :password, :uid, :provider, :image)
   end
 end

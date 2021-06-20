@@ -1,31 +1,20 @@
 <%= form_for(@user) do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div>
-  <%= f.label "Height (in inches)" %>
-  <%= f.text_field :height %>
-  </div>
-  <div>
-  <%= f.label "How happy are you? (1-5 scale)" %>
-  <%= f.text_field :happiness %>
-  </div>
-  <div>
-  <%= f.label "How nauseous are you? (1-5 scale)" %>
-  <%= f.text_field :nausea %>
-  </div>
-  <div>
-  <%= f.label "How many dollars do you have" %>
-  <%= f.text_field :tickets %>
-  </div>
-  <div>
-  <%= f.label "Check box if you are a theme park owner" %>
-  <%= f.check_box :admin %>
-  </div>
-  <div>
-  <%= f.label "Password" %>
-  <%= f.text_field :password %>
-  </div>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2>There were some errors:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div><%= f.label :name %></div>
+  <div><%= f.text_field :name %></div>
+  <div><%= f.label :email %></div>
+  <div><%= f.text_field :email %></div>
+  <div><%= f.label :password %></div>
+  <div><%= f.text_field :password %></div>
+  <%= f.hidden_field :provider, :value => 'none', readonly: true %>
   <%= f.submit %>
 <% end %>

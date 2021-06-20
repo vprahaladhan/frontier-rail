@@ -22,7 +22,7 @@
           </button>
           <a class="navbar-brand" href="<%= root_url %>"/>Home</a>
           <% if session[:user_id].nil? then %>
-            <a class="navbar-brand" href="#"/>Sign Up</a>
+            <a class="navbar-brand" href="<%= new_user_path %>"/>Sign Up</a>
             <a class="navbar-brand" href="<%= login_path %>"/>Login</a>
           <% end %>
           <% if !session[:user_id].nil? then %>

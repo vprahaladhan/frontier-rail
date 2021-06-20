@@ -67,3 +67,6 @@ gem 'omniauth-rails_csrf_protection'
 
 # bootstrap
 gem 'bootstrap-sass', '3.3.7'
+
+# Use ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.7'
