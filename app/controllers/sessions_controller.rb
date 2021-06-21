@@ -26,6 +26,7 @@ class SessionsController < ApplicationController
       end
     end
     session[:user_id] = @user.id
+    session[:username] = @user.name
     redirect_to root_path
   end
 

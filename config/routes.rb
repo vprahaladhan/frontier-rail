@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
+  resources :trains
+
+  resources :trips
+
   get  '/login',  to: 'sessions#new'    
   post '/login',  to: 'sessions#create',  as: 'login_post' 
   get  '/logout', to: 'sessions#destroy'

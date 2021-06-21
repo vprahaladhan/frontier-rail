@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.valid? then 
       session[:user_id] = @user.id
+      session[:username] = @user.name
       redirect_to root_path
     else
       render :new
@@ -28,10 +29,10 @@ class UsersController < ApplicationController
   end
 
   def index
-    if (!session[:user_id].nil? && User.find_by(id: session[:user_id]).name == 'admin') then 
+    if (session[:username] == 'admin') then 
       @users = User.all
     else 
-      flash[:error] = "You should be an admin to view this page!"
+      @errors = "You should be an admin to view this page!"
       render :index
     end
   end

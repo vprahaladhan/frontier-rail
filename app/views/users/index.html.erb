@@ -1,1 +1,12 @@
 <h1>All users</h1>
+
+<% if !@errors.nil? && @users.nil? then %>
+  <%= @errors %>
+<% else %>
+  <% @users.each do |user| %>
+    <div><%= "Name: " + user.name %></div>
+    <div><%= "Email: " + user.email %></div>
+    <div><%= "Provider: " + user.provider %></div>
+    <div><%= "UID: " + (!user.uid.nil? ? user.uid.to_s : '') %></div>
+  <% end %>
+<% end %>

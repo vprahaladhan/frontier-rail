@@ -1,7 +1,7 @@
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
-      <h2>There were some errors:</h2>
+      <h5>There were some errors:</h5>
       <ul>
         <% @user.errors.full_messages.each do |message| %>
           <li><%= message %></li>
