@@ -1,19 +1,7 @@
 <h1>Book your trip!</h1>
 
 <%= form_for(@trip) do |f| %>
-  <% if @trip.errors.any? %>
-    <div id="error_explanation">
-      <h5>There were some errors:</h5>
-      <ul>
-        <% @trip.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div><%= f.label :train_id %></div>
-  <div><%= f.select(:train_id, @trains, {}, {:class => 'my_style_class'}) %></div>
-  <div><%= f.label :date %></div>
-  <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+  <%= render partial: "layouts/errors", locals: {model: @trip}%>
+  <%= render partial: "trip", locals: {trip: @trip, trains: @trains} %>
   <%= f.submit %>
 <% end %>

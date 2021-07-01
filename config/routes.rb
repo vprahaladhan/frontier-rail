@@ -4,11 +4,19 @@ Rails.application.routes.draw do
 
   root 'welcome#home'
 
-  resources :users, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  resources :users
 
   resources :trains
 
   resources :trips
+
+  resources :users, only: [:show] do
+    resources :trips, only: [:show, :index]
+  end
+
+  resources :trains, only: [:show] do
+    resources :trips, only: [:show, :index]
+  end
 
   get  '/login',  to: 'sessions#new'    
   post '/login',  to: 'sessions#create',  as: 'login_post' 

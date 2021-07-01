@@ -1,19 +1,11 @@
 <div style='margin:auto'>
   <%= form_for(@user, url: login_post_path) do |f| %>
-    <% if @user.errors.any? %>
-      <div id="error_explanation">
-        <ul>
-          <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <%= render partial: "layouts/errors", locals: {model: @user}%>
 
     <div><%= f.label :email %></div>
-    <div><%= f.text_field :email %></div>
+    <div><%= f.text_field :email, required: true %></div>
     <div><%= f.label :password %></div>
-    <div><%= f.text_field :password %></div>
+    <div><%= f.password_field :password, required: true %></div>
     <%= f.hidden_field :provider, :value => 'none', readonly: true %>
     <%= f.submit %>
 

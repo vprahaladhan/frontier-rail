@@ -1,2 +1,15 @@
-<h1>Trains#show</h1>
-<p>Find me in app/views/trains/show.html.erb</p>
+<h1>Train details</h1>
+
+<%= render partial: "layouts/errors", locals: {model: @train} %>
+
+<% if @train.errors.empty? then %>
+  <div>
+    Name: <%= @train.name %>
+    Origin: <%= @train.from %>
+    Destination: <%= @train.to %>
+    Seats available: <%= @train.capacity.to_s %>
+  </div>
+
+  <%= link_to "Edit Train", edit_train_path(@train) %>
+  <%= link_to "Delete Train", train_path(@train), method: :delete %>
+<% end %>

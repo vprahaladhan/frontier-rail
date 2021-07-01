@@ -1,0 +1,10 @@
+<%= fields_for :train do |f| %>
+  <div><%= f.label :name %></div>
+  <div><%= f.text_field :name, required: true %></div>
+  <div><%= f.label :from %></div>
+  <div><%= f.text_field :from, required: true %></div>
+  <div><%= f.label :to %></div>
+  <div><%= f.text_field :to, required: true %></div>
+  <div><%= f.label :capacity %></div>
+  <div><%= f.text_field :capacity, required: true %></div>
+<% end %>

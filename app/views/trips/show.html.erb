@@ -1,8 +1,13 @@
-<% if @error.nil? then %>
-  <h1>Trip <%= @trip.id %></h1>
-  <div><%= "Train: " + @trip.train.name %></div>
-  <div><%= "User: " + @trip.user.name %></div>
-  <div><%= "Date: " + @trip.date %></div>
-<% else %>
-  <%= @error %>
+<%= render partial: "layouts/errors", locals: {model: @trip} %>
+
+<% if @trip.errors.empty? then %>
+  <div>
+    <h1>Trip <%= @trip.id %></h1>
+    <div>Train: <%= link_to @trip.train.name, train_path(@trip.train) %></div>
+    <div>User: <%= link_to @trip.user.name, user_path(@trip.user) %></div>
+    <div>Date: <%= @trip.date.to_s %></div>
+  </div>
+
+  <%= link_to "Edit Trip", edit_trip_path(@trip) %>
+  <%= link_to "Delete Trip", trip_path(@trip), method: :delete %>
 <% end %>

@@ -1,8 +1,8 @@
 class CreateTrips < ActiveRecord::Migration[6.1]
   def change
     create_table :trips do |t|
-      t.integer :user_id
-      t.integer :train_id
+      t.belongs_to :user, index: true, foreign_key: true
+      t.belongs_to :train, index: true, foreign_key: true
       t.date :date
 
       t.timestamps

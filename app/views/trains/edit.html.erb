@@ -1,2 +1,7 @@
-<h1>Trains#edit</h1>
-<p>Find me in app/views/trains/edit.html.erb</p>
+<h1>Edit train</h1>
+
+<%= form_for(@train) do |f| %>
+  <%= render partial: "layouts/errors", locals: {model: @train}%>
+  <%= render partial: "train", locals: {train: @train} %>
+  <%= f.submit %>
+<% end %>

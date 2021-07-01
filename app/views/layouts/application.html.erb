@@ -26,7 +26,7 @@
             <a class="navbar-brand" href="<%= login_path %>"/>Login</a>
           <% end %>
           <% if !session[:user_id].nil? then %>
-            <a class="navbar-brand" href="#"/>My Profile</a>
+            <a class="navbar-brand" href="<%= user_path(session[:user_id]) %>"/>My Profile</a>
             <a class="navbar-brand" href="<%= logout_path %>"/>Logout</a>
           <% end %>
         </div>
@@ -39,7 +39,7 @@
     </div>
 
     <!-- content -->
-    <div class="container" align="center" role="main">
+    <div class="container" role="main">
       <%= yield %>
     </div>
   </body>

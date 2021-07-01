@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_20_235444) do
+ActiveRecord::Schema.define(version: 2021_06_22_110241) do
+
+  create_table "schedules", force: :cascade do |t|
+    t.integer "train_id"
+    t.date "date"
+    t.integer "capacity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["train_id"], name: "index_schedules_on_train_id"
+  end
 
   create_table "trains", force: :cascade do |t|
     t.string "name"
+    t.string "from"
+    t.string "to"
     t.integer "capacity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -25,6 +36,8 @@ ActiveRecord::Schema.define(version: 2021_06_20_235444) do
     t.date "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["train_id"], name: "index_trips_on_train_id"
+    t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,4 +52,7 @@ ActiveRecord::Schema.define(version: 2021_06_20_235444) do
     t.index ["email", "provider"], name: "index_users_on_email_and_provider"
   end
 
+  add_foreign_key "schedules", "trains"
+  add_foreign_key "trips", "trains"
+  add_foreign_key "trips", "users"
 end

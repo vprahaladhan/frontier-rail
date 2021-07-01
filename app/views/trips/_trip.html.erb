@@ -1,0 +1,8 @@
+<%= fields_for :trip do |f| %>
+  <div><%= f.label :train_id %></div>
+  <div><%= f.select(:train_id, trains, {}, {:class => 'my_style_class'}) %></div>
+  <div><%= f.label :date %></div>
+  <div>
+    <%= f.date_field :date, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %>
+  </div>
+<% end %>

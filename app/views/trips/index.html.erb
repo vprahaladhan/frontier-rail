@@ -1,7 +1,8 @@
 <h1>All trips</h1>
 
 <% @trips.each do |trip| %>
-  <div><%= "Train: " + trip.train.name %></div>
-  <div><%= "User: " + trip.user.name %></div>
-  <div><%= "Date: " + trip.date %></div>
+  <div>ID: <%= link_to trip.id, trip_path(trip) %></div>
+  <div>Train: <%= trip.train.name %></div>
+  <div>User: <%= trip.user.name %></div>
+  <div>Date: <%= trip.date.to_s %></div>
 <% end %>

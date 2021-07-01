@@ -1,2 +1,10 @@
-<h1>Trains#index</h1>
-<p>Find me in app/views/trains/index.html.erb</p>
+<h1>All trains</h1>
+
+<% @trains.each do |train| %>
+  <div>
+    Name: <%= link_to(train.name, train_path(train.id)) %>
+    Origin: <%= train.from %>
+    Destination: <%= train.to %>
+    Seats available: <%= train.capacity.to_s %>
+  </div>
+<% end %>

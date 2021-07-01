@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :require_login
+  skip_before_action :require_login, only: [:new, :create]
+
   def new
     @user = User.new
   end
@@ -13,7 +16,7 @@ class UsersController < ApplicationController
     if @user.valid? then 
       session[:user_id] = @user.id
       session[:username] = @user.name
-      redirect_to root_path
+      redirect_to user_path(@user)
     else
       render :new
     end
@@ -26,21 +29,33 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    if session[:username] == 'admin' then
+      User.delete(params[:id])
+    else
+      return head(:forbidden)
+    end
   end
 
   def index
     if (session[:username] == 'admin') then 
       @users = User.all
     else 
-      @errors = "You should be an admin to view this page!"
+      @users.errors.add(:name, "You should be an admin to view this page!")
       render :index
     end
   end
 
   def show
-    @user = User.find_by_id(params[:id].to_i)
-    if (session[:user_id].nil?) then
-      redirect_to '/'
+    @user = User.find_by(id: params[:id])
+    if (!@user.nil? && @user.id == session[:user_id]) then
+      @trips = Trip.user_trips(@user.id)
+    else
+      if @user.name == 'admin' then 
+        @trips = Trip.user_trips(@user.id)
+      else
+        puts "Redirecting to.."
+        redirect_to '/'
+      end
     end
   end
 
@@ -48,5 +63,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :uid, :provider, :image)
+  end
+
+  def require_login
+    return head(:forbidden) unless session.include? :user_id
   end
 end
