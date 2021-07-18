@@ -13,10 +13,12 @@ class TrainsController < ApplicationController
 
   def edit
     @train = Train.find_by(id: params[:id])
+    puts "Found train 1 >> #{@train[:id]}"
   end
 
   def update
     @train = Train.find_by(id: params[:id])
+    puts "Found train 2 >> #{@train[:id]}"
     Train.update(train_params)
     redirect_to trains_path
   end
@@ -31,10 +33,11 @@ class TrainsController < ApplicationController
   end
 
   def show
+    @username = session[:username]
     @train = Train.find_by(id: params[:id])
     if @train.nil?
       @train = Train.new
-      @train.errors.add(:id, "Train with ID: #{params[:id]} not found!");
+      @train.errors.add(:id, "Train with ID: #{params[:id]} not found!")
       puts "Train errors >> #{@train.errors[:id]}"
     end
   end
@@ -46,6 +49,6 @@ class TrainsController < ApplicationController
   end
 
   def require_admin
-    return head(:forbidden) unless !session[:user_id].nil? && session[:username] == 'admin'
+    return head(:forbidden) unless !session[:user_id].nil? && session[:username] == "admin"
   end
 end

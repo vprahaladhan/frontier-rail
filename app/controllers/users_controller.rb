@@ -7,13 +7,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    if (user_params[:name] == 'admin') then 
-      if (!User.find_by(name: "admin").nil?) then
+    if (user_params[:name] == "admin")
+      if (!User.find_by(name: "admin").nil?)
         return head(:forbidden)
       end
     end
     @user = User.create(user_params)
-    if @user.valid? then 
+    if @user.valid?
       session[:user_id] = @user.id
       session[:username] = @user.name
       redirect_to user_path(@user)
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if session[:username] == 'admin' then
+    if session[:username] == "admin"
       User.delete(params[:id])
     else
       return head(:forbidden)
@@ -37,9 +37,9 @@ class UsersController < ApplicationController
   end
 
   def index
-    if (session[:username] == 'admin') then 
+    if (session[:username] == "admin")
       @users = User.all
-    else 
+    else
       @users.errors.add(:name, "You should be an admin to view this page!")
       render :index
     end
@@ -47,14 +47,16 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    if (!@user.nil? && @user.id == session[:user_id]) then
+    puts "User >> #{@user.name}"
+    if (!@user.nil? && @user.name != "admin" && @user.id == session[:user_id])
       @trips = Trip.user_trips(@user.id)
     else
-      if @user.name == 'admin' then 
-        @trips = Trip.user_trips(@user.id)
+      if @user.name == "admin"
+        # @trips = Trip.user_trips(@user.id)
+        @trains = Train.all
       else
         puts "Redirecting to.."
-        redirect_to '/'
+        redirect_to "/"
       end
     end
   end

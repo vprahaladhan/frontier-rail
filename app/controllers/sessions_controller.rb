@@ -4,20 +4,20 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if !auth.nil? then 
-      @user = User.find_by(email: auth['info']['email'], provider: auth['provider'])
-      if (@user.nil?) then 
-        @user.name = auth['info']['name']
-        @user.email = auth['info']['email']
-        @user.image = auth['info']['image']
+    if !auth.nil?
+      @user = User.find_by(email: auth["info"]["email"], provider: auth["provider"])
+      if (@user.nil?)
+        @user.name = auth["info"]["name"]
+        @user.email = auth["info"]["email"]
+        @user.image = auth["info"]["image"]
         @user.password_digest = SecureRandom.hex(32)
-        @user.provider = auth['provider']
-        @user.uid = auth['uid']
+        @user.provider = auth["provider"]
+        @user.uid = auth["uid"]
         @user.save
-      end  
+      end
     else
       @user = User.find_by(email: user_params[:email], provider: user_params[:provider])
-      if @user.nil? || !@user.authenticate(user_params[:password]) then 
+      if @user.nil? || !@user.authenticate(user_params[:password])
         @user = User.new(user_params)
         @user.errors.add(:base, "Invalid credentials!")
         return render :new
@@ -30,13 +30,15 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete :user_id
+    session.delete :username
     redirect_to root_path
   end
 
   private
 
   def auth
-    request.env['omniauth.auth']
+    puts "Req env > #{request.env["omniauth.auth"]}"
+    request.env["omniauth.auth"]
   end
 
   def user_params

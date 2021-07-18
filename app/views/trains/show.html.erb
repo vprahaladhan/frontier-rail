@@ -1,8 +1,8 @@
 <h1>Train details</h1>
 
-<%= render partial: "layouts/errors", locals: {model: @train} %>
+<%= render partial: "layouts/errors", locals: { model: @train } %>
 
-<% if @train.errors.empty? then %>
+<% if @train.errors.empty? %>
   <div>
     Name: <%= @train.name %>
     Origin: <%= @train.from %>
@@ -10,6 +10,8 @@
     Seats available: <%= @train.capacity.to_s %>
   </div>
 
-  <%= link_to "Edit Train", edit_train_path(@train) %>
-  <%= link_to "Delete Train", train_path(@train), method: :delete %>
+  <% if @username == "admin" %>
+    <%= link_to "Edit Train", edit_train_path(@train) %>
+    <%= link_to "Delete Train", train_path(@train), method: :delete %>
+  <% end %>
 <% end %>

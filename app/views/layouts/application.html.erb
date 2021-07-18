@@ -6,8 +6,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
+    <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
   </head>
 
   <body>
@@ -21,11 +21,12 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="<%= root_url %>"/>Home</a>
-          <% if session[:user_id].nil? then %>
+          <a class="navbar-brand" href="<%= trains_path %>"/>Trains</a>
+          <% if session[:user_id].nil? %>
             <a class="navbar-brand" href="<%= new_user_path %>"/>Sign Up</a>
             <a class="navbar-brand" href="<%= login_path %>"/>Login</a>
           <% end %>
-          <% if !session[:user_id].nil? then %>
+          <% if !session[:user_id].nil? %>
             <a class="navbar-brand" href="<%= user_path(session[:user_id]) %>"/>My Profile</a>
             <a class="navbar-brand" href="<%= logout_path %>"/>Logout</a>
           <% end %>

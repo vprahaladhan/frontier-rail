@@ -1,19 +1,27 @@
-<h1><%= !params[:message].nil? ? params[:message]  : '' %></h1>
+<h1><%= !params[:message].nil? ? params[:message] : "" %></h1>
 
-<h1><%= @user.name == 'admin' ? 'ADMIN' : @user.name %></h1>
-<% if @user.name != 'admin' then %>
+<h1><%= @user.name == "admin" ? "ADMIN" : @user.name %></h1>
+<% if @user.name != "admin" %>
   <p>Name: <%= @user.name %></p>
   <p>Email: <%= @user.email %></p>
 <% end %>
 
-<h3>Trips booked</h3>
-<% if @trips.nil? then %>
-  <div>No trips available for the user!</div>
-<% else %>
-  <% @trips.each do |trip| %>
-    <h1>Trip <%= trip.id %></h1>
-    <div>Train: <%= link_to trip.train.name, train_path(trip.train) %></div>
-    <div>User: <%= link_to trip.user.name, user_path(trip.user) %></div>
-    <div>Date: <%= trip.date.to_s %></div>
+<% if @user.name != "admin" %>
+  <% if @trips.nil? %>
+    <h3>Trips booked</h3>
+    <div>No trips available for the user!</div>
+  <% else %>
+    <% @trips.each do |trip| %>
+      <h1>Trip <%= link_to trip.id, trip_path(trip) %></h1>
+      <div>Train: <%= link_to trip.train.name, train_path(trip.train) %></div>
+      <div>Date: <%= trip.date.to_s %></div>
+    <% end %>
   <% end %>
+  <%= link_to "Add new trip", new_trip_path %>
+<% else %>
+  <h3>Trains</h3>
+  <% @trains.each do |train| %>
+    <div>Train: <%= link_to train.name, train_path(train) %></div>
+  <% end %>
+  <div><%= link_to "Add Train", new_train_path %></div>
 <% end %>
